@@ -4,10 +4,9 @@ A simple backend for queries mapping an IPv4 address to a location (e.g. country
 
 ## TODO:
 
-- Return original in query
-
 - SQL to file
 - Solve remaining TODO's backend
+- domain objects to separate dir
 
 - Instructions on how to build
 
@@ -20,7 +19,13 @@ Output for example:
 
 ```
 {
-  "code": "US",
-  "fullName": "United States of America"
+  "query": {
+    "ipAddress": "8.8.8.8",
+    "ipAddressNumeric": 134744072
+  },
+  "country": {
+    "code": "US",
+    "fullName": "United States of America"
+  }
 }
 ```

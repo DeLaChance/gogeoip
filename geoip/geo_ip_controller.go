@@ -12,9 +12,9 @@ func InitGeoIpRoutes(router *gin.Engine, repository *MySqlGeoIpRepository) {
 
 	router.GET("/api/geoip/:ipAddress/country", func(c *gin.Context) {
 		ipAddress := c.Param("ipAddress")
-		geoIpRange, err := repository.FindCountryByIpAddress(ipAddress)
+		response, err := repository.FindCountryByIpAddress(ipAddress)
 		if (err == nil) {
-			c.JSON(http.StatusOK, *geoIpRange.Country)
+			c.JSON(http.StatusOK, response)
 		} else {
 			c.String(http.StatusInternalServerError, "Server error")
 		}		
