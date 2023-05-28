@@ -6,10 +6,17 @@ import (
 	"net/http"
 )
 
-func InitGeoIpRoutes(router *gin.Engine) {
+func InitGeoIpRoutes(router *gin.Engine, repository *MySqlGeoIpRepository) {
 
 	fmt.Println("Adding GEO ip rest api routes")
-	router.GET("/api/countries", func(c *gin.Context) {
-		c.String(http.StatusOK, "{\"result\": \"ok\"}")
+
+	router.GET("/api/geoip/:ipAddress/country", func(c *gin.Context) {
+		ipAddress := c.Param("ipAddress")
+		geoIpRange, err := repository.FindCountryByIpAddress(ipAddress)
+		if (err == nil) {
+			c.JSON(http.StatusOK, *geoIpRange.Country)
+		} else {
+			c.String(http.StatusInternalServerError, "Server error")
+		}		
 	})
 }

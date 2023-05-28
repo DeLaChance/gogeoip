@@ -1,0 +1,7 @@
+{
+    "mysql-user": "lucien",
+    "mysql-password": "valstar",
+    "db-name": "gogeoip",
+    "host": "localhost",
+    "port": 3306
+  }

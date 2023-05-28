@@ -1,19 +1,15 @@
 package main
 
 import (
-	"fmt"
-	"go.uber.org/fx"
-	
+	"go.uber.org/fx"	
 	"config"
+	"geoip"
 )
 
 func main() {
 	fx.New(
-		fx.Invoke(initializeApp),
-		fx.Invoke(config.StartRestController),
+		fx.Provide(config.InitDatabaseConnection),
+		fx.Provide(geoip.InitMySqlGeoIpRepository),
+		fx.Invoke(config.InitRestController),
 	).Run()
-}
-
-func initializeApp() {
-	fmt.Println("Initializing app")
 }
