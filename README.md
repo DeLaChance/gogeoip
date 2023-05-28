@@ -1,20 +1,24 @@
-# "Hello World" REST API
+# gogeoip applicaiton
 
-### Simple “Hello World” REST API in Go to understand how handler and Http router work, and how to parse the request and send the response.
+A simple backend for queries mapping an IPv4 address to a location (e.g. country) via a REST JSON api.
 
-1. GET /hello/xxxx
+## TODO:
 
-Response:
-Hello, xxxx!
+- Parameter use in query
+- SQL to file
+- Solve TODO's backend
+- Instructions on how to build
 
-2. POST /hello
+# Rest API:
 
-Request:
+GET:
+[http://localhost:8080/api/geoip/:ipAddress/country](http://localhost:8080/api/geoip/:ipAddress/country).
+
+Output for example:
+
+```
 {
-“name”: “foo”
+  "code": "ES",
+  "fullName": "Spain"
 }
-
-Response:
-{
-“greeting” : “Hello, foo!”
-}
+```
