@@ -3,6 +3,8 @@ package geoip
 import (	
 	"errors"
 	"database/sql"
+	"net"
+	"math/big"
 )
 
 type MySqlGeoIpRepository struct {	
@@ -17,7 +19,7 @@ func (repo MySqlGeoIpRepository) FindCountryByIpAddress(ipAddress string) (*GeoI
 
 	// TODO: write to file
 	sql := "select c.code, c.full_name, gir.beginIp, gir.endIp from gogeoip.countries c join gogeoip.geo_ip_ranges gir on gir.countryCode = c.code where gir.beginIp <= ? and gir.endIp >= ?;"
-	ipAddressNumeric := "1347441663" // TODO: write converter
+	ipAddressNumeric := convertIpv4IpAddressToNumeric(ipAddress)
 
 	var country Country
 	var geoIpRange GeoIpRange
@@ -32,4 +34,9 @@ func (repo MySqlGeoIpRepository) FindCountryByIpAddress(ipAddress string) (*GeoI
 	}
 }
 
-
+func convertIpv4IpAddressToNumeric(ipv4Address string) string {
+	bytes := net.ParseIP(ipv4Address).To4()
+	bigInt := big.NewInt(0)
+	bigInt.SetBytes(bytes)
+	return bigInt.String()
+}
